@@ -60,10 +60,9 @@ const DropDownContainer = styled.div`
   position: relative;
   .formElement {
     box-sizing: border-box;
-
     padding: 0.8rem;
     background-color: #ffffff;
-    border: 0.1rem solid ${Orion.teal500};
+    border: 0.1rem solid ${Orion.gray500};
     border-radius: 0.2rem;
     height: 4.8rem;
     width: 100%;

@@ -71,15 +71,15 @@ const Orion = {
   blue700: '#003b81',
   blue800: '#002249',
 
-  gray100: '##fafafb',
-  gray200: '##f0f0f2',
-  gray300: '##e0e0e4',
-  gray400: '##b8b8c0',
-  gray500: '##8f8f9c',
-  gray600: '##666678',
-  gray700: '##3d3d54',
-  gray800: '##1f1f39',
-  gray900: '##00001e'
+  gray100: '#fafafb',
+  gray200: '#f0f0f2',
+  gray300: '#e0e0e4',
+  gray400: '#b8b8c0',
+  gray500: '#8f8f9c',
+  gray600: '#666678',
+  gray700: '#3d3d54',
+  gray800: '#1f1f39',
+  gray900: '#00001e'
 };
 
 export default Orion;
