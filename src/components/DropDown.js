@@ -187,7 +187,7 @@ const DropDownContainer = styled.div`
     align-items: center;
     cursor: pointer;
     &:hover {
-      background-color: ${Orion.gray200};
+      background-color: ${Orion.teal200};
       color: ${Orion.indigo500};
     }
   }
