@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import CarrotDown from './CarrotDown';
+import { ThemeProvider } from 'styled-components';
+import Orion from './Orion';
 
 export default class DropDown extends Component {
   constructor(props) {
@@ -14,29 +16,31 @@ export default class DropDown extends Component {
 
   render() {
     return (
-      <DropDownContainer>
-        <div
-          ref={this.formContainer}
-          className={`formElement ${
-            this.state.isActive === true ? 'in-focus' : ''
-          }`}
-          onClick={this.clickInput}
-          title={this.state.selectedItem}
-        >
-          <CarrotDown />
-          <label className="formElement__label">{this.props.formLabel}</label>
-          <input
-            type={this.props.inputType}
-            ref={this.childInput}
-            className="formElement__input"
-            onFocus={this.focusInput}
-            value={this.state.selectedItem}
-          />
-        </div>
-        <div className="formElement__flyOut-container">
-          {/* <ul className="formElement__flyOut">{listItems}</ul> */}
-        </div>
-      </DropDownContainer>
+      <ThemeProvider theme={Orion}>
+        <DropDownContainer>
+          <div
+            ref={this.formContainer}
+            className={`formElement ${
+              this.state.isActive === true ? 'in-focus' : ''
+            }`}
+            onClick={this.clickInput}
+            title={this.state.selectedItem}
+          >
+            <CarrotDown />
+            <label className="formElement__label">{this.props.formLabel}</label>
+            <input
+              type={this.props.inputType}
+              ref={this.childInput}
+              className="formElement__input"
+              onFocus={this.focusInput}
+              value={this.state.selectedItem}
+            />
+          </div>
+          <div className="formElement__flyOut-container">
+            {/* <ul className="formElement__flyOut">{listItems}</ul> */}
+          </div>
+        </DropDownContainer>
+      </ThemeProvider>
     );
   }
 }
@@ -46,24 +50,24 @@ const DropDownContainer = styled.div`
     box-sizing: border-box;
     position: relative;
     padding: 0.8rem;
-    background-color: white;
-    border: 0.1rem solid black;
+    background-color: #ffffff;
+    border: 0.1rem solid ${Orion.teal500};
     border-radius: 0.2rem;
     height: 4.8rem;
     width: 100%;
     cursor: pointer;
     &.in-focus,
     &.in-focus:hover {
-      background-color: $white-1000;
-      border: 0.2rem solid $indigo-500;
-      box-shadow: 0px 0px 0px 2px $indigo-200;
+      background-color: #ffffff;
+      border: 0.2rem solid ${Orion.indigo500};
+      box-shadow: 0px 0px 0px 2px ${Orion.indigo200};
       .formElement__label {
         transform: scale(0.85714) translateY(-0.3rem);
         width: 100%;
         color: #999999;
       }
       .formElement__input {
-        color: #222222;
+        color: ${Orion.gray900};
       }
       + .formElement__flyOut-container {
         pointer-events: auto;
@@ -87,25 +91,25 @@ const DropDownContainer = styled.div`
       .formElement__label {
         transform: scale(0.85714) translateY(-0.3rem);
         width: 100%;
-        color: $indigo-500;
+        color: ${Orion.indigo500};
       }
     }
     &.in-error {
-      background-color: $red-200;
-      border: 0.2rem solid $red-500;
+      background-color: ${Orion.red200};
+      border: 0.2rem solid ${Orion.red500};
       .formElement__label {
         color: $red-500;
       }
     }
     &.is-disabled {
-      border-color: $gray-300;
+      border-color: ${Orion.gray300};
       .formElement__label {
-        color: $gray-400;
+        color: ${Orion.gray400};
       }
     }
     &:hover {
-      background-color: $indigo-100;
-      border-color: $indigo-500;
+      background-color: ${Orion.indigo100};
+      border-color: ${Orion.indigo500};
     }
     &__label {
       position: absolute;
@@ -125,7 +129,7 @@ const DropDownContainer = styled.div`
       border: none;
       background-color: transparent;
       font-size: 1.2rem;
-      color: $indigo-800;
+      color: ${Orion.indigo800};
       transform: translateY(1.2rem);
       pointer-events: none;
       width: 100%;
@@ -144,8 +148,8 @@ const DropDownContainer = styled.div`
     }
     &__flyOut {
       transform: translateY(-100%);
-      background-color: $white-1000;
-      border: 1px solid $gray-500;
+      background-color: #ffffff;
+      border: 1px solid ${Orion.gray500};
       margin: 0;
       transition: transform 0.3s ease;
       list-style: none;
@@ -163,15 +167,15 @@ const DropDownContainer = styled.div`
   }
   .flyOut__item {
     height: 2.8rem;
-    color: $gray-500;
+    color: ${Orion.gray500};
     margin: 0;
     padding: 0 0.8rem;
     display: flex;
     align-items: center;
     cursor: pointer;
     &:hover {
-      background-color: $gray-200;
-      color: $indigo-500;
+      background-color: ${Orion.gray200};
+      color: ${Orion.indigo500};
     }
   }
 `;
