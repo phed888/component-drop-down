@@ -10,9 +10,22 @@ export default class DropDown extends Component {
     this.formContainer = React.createRef();
     this.state = {
       isActive: false,
-      selectedItem: '- Select -'
+      selectedItem: ''
     };
   }
+
+  clickInput = e => {
+    let clickState = !this.state.isActive;
+    console.log(clickState);
+    this.setState({ isActive: clickState });
+    console.log(this.state.isActive);
+  };
+
+  listItems = this.props.dropList.map((listItem, key) => (
+    <li key={listItem.id} className="flyOut__item">
+      {listItem}
+    </li>
+  ));
 
   render() {
     return (
@@ -20,9 +33,7 @@ export default class DropDown extends Component {
         <DropDownContainer>
           <div
             ref={this.formContainer}
-            className={`formElement ${
-              this.state.isActive === true ? 'in-focus' : ''
-            }`}
+            className={`formElement ${this.state.isActive ? 'in-focus' : ''}`}
             onClick={this.clickInput}
             title={this.state.selectedItem}
           >
@@ -37,7 +48,7 @@ export default class DropDown extends Component {
             />
           </div>
           <div className="formElement__flyOut-container">
-            {/* <ul className="formElement__flyOut">{listItems}</ul> */}
+            <ul className="formElement__flyOut">{this.listItems}</ul>
           </div>
         </DropDownContainer>
       </ThemeProvider>
@@ -46,9 +57,10 @@ export default class DropDown extends Component {
 }
 
 const DropDownContainer = styled.div`
+  position: relative;
   .formElement {
     box-sizing: border-box;
-    position: relative;
+
     padding: 0.8rem;
     background-color: #ffffff;
     border: 0.1rem solid ${Orion.teal500};
@@ -114,6 +126,7 @@ const DropDownContainer = styled.div`
     &__label {
       position: absolute;
       display: flex;
+      font-size: 1.4rem;
       align-content: center;
       justify-content: space-between;
       width: calc(100% - 16px);
@@ -166,6 +179,7 @@ const DropDownContainer = styled.div`
     position: relative;
   }
   .flyOut__item {
+    font-size: 1.4rem;
     height: 2.8rem;
     color: ${Orion.gray500};
     margin: 0;
