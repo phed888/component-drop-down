@@ -20,9 +20,15 @@ export default class DropDown extends Component {
     this.setState({ isActive: clickState });
     console.log(this.state.isActive);
   };
+  clickItem = e => {
+    const clickText = e.target.textContent;
+    let clickState = !this.state.isActive;
+    this.setState({ selectedItem: clickText });
+    this.setState({ isActive: clickState });
+  };
 
   listItems = this.props.dropList.map((listItem, key) => (
-    <li key={listItem.id} className="flyOut__item">
+    <li key={listItem.id} onClick={this.clickItem} className="flyOut__item">
       {listItem}
     </li>
   ));
@@ -33,7 +39,9 @@ export default class DropDown extends Component {
         <DropDownContainer>
           <div
             ref={this.formContainer}
-            className={`formElement ${this.state.isActive ? 'in-focus' : ''}`}
+            className={`formElement ${this.state.isActive ? 'in-focus' : ''} ${
+              this.state.selectedItem ? 'is-dirty' : ''
+            }`}
             onClick={this.clickInput}
             title={this.state.selectedItem}
           >
@@ -78,6 +86,7 @@ const DropDownContainer = styled.div`
         color: #999999;
       }
       .formElement__input {
+        font-size: 1.4rem;
         color: ${Orion.gray900};
       }
       + .formElement__flyOut-container {
@@ -140,7 +149,7 @@ const DropDownContainer = styled.div`
     &__input {
       border: none;
       background-color: transparent;
-      font-size: 1.2rem;
+      font-size: 1.4rem;
       color: ${Orion.indigo800};
       transform: translateY(1.2rem);
       pointer-events: none;

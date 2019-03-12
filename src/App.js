@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { createGlobalStyle } from "styled-components";
-import DropDown from "./components/DropDown";
+import React, { Component } from 'react';
+import { createGlobalStyle } from 'styled-components';
+import DropDown from './components/DropDown';
 
 class App extends Component {
   render() {
@@ -9,7 +9,7 @@ class App extends Component {
         <GlobalStyle />
         <DropDown
           formLabel="Contact names"
-          dropList={["Bpb", "Ted", "Carol", "Alice"]}
+          dropList={['Bob', 'Ted', 'Carol', 'Alice', 'Zippy']}
         />
       </div>
     );
