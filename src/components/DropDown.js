@@ -20,6 +20,7 @@ export default class DropDown extends Component {
     this.setState({ isActive: clickState });
     console.log(this.state.isActive);
   };
+
   clickItem = e => {
     const clickText = e.target.textContent;
     let clickState = !this.state.isActive;
@@ -27,9 +28,12 @@ export default class DropDown extends Component {
     this.setState({ isActive: clickState });
   };
 
-  listItems = this.props.dropList.map((listItem, key) => (
-    <li key={listItem.id} onClick={this.clickItem} className="flyOut__item">
-      {listItem}
+  listItems = this.props.dropList.map(listItem => (
+    <li key={listItem.name} onClick={this.clickItem} className="flyOut__item">
+      <div>
+        <span className="listName">{listItem.name}</span>
+        <span className="listTitle">{listItem.title}</span>
+      </div>
     </li>
   ));
 
@@ -53,6 +57,7 @@ export default class DropDown extends Component {
               className="formElement__input"
               onFocus={this.focusInput}
               value={this.state.selectedItem}
+              onChange={this.clickItem}
             />
           </div>
           <div className="formElement__flyOut-container">
@@ -195,6 +200,12 @@ const DropDownContainer = styled.div`
     display: flex;
     align-items: center;
     cursor: pointer;
+    & > div {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: space-between;
+    }
     &:hover {
       background-color: ${Orion.teal200};
       color: ${Orion.indigo500};
