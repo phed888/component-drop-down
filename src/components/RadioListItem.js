@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import Orion from './Orion';
+import React, { Component } from "react";
+import styled from "styled-components";
+import Orion from "./Orion";
 
 class RadioListItem extends Component {
   // constructor(props) {
@@ -13,22 +13,22 @@ class RadioListItem extends Component {
 
   render() {
     return (
-      <RadioItemContainer
-        key={this.props.itemName}
-        // onClick={this.props.onClick}
-      >
-        <label className="radioListLabel" htmlFor={this.props.itemName}>
-          <span className="radioListName">
+      <RadioItemContainer key={this.props.itemName}>
+        <label htmlFor={this.props.itemName} className="radioListLabel">
+          <span className="listName">
             <input
               type="radio"
+              name="radioTest"
               id={this.props.itemName}
-              name="NameList"
               checked={this.props.selectedOption === this.props.itemName}
-              onChange={this.props.onClick}
+              onChange={this.props.handleOptionChange.bind(
+                this,
+                this.props.itemName
+              )}
             />
             {this.props.itemName}
           </span>
-          <span className="radioListTitle">{this.props.itemTitle}</span>
+          <span className="listTitle">{this.props.itemTitle}</span>
         </label>
       </RadioItemContainer>
     );
@@ -55,11 +55,11 @@ const RadioItemContainer = styled.li`
     margin-bottom: 0.4rem;
     padding-bottom: 1.2rem;
   }
-  &:last-child {
+  /* &:last-child {
     border-top: 1px solid rgba(0, 0, 30, 0.2);
     margin-top: 0.4rem;
     padding-top: 1.2rem;
-  }
+  } */
   .radioListLabel {
     display: flex;
     justify-content: space-between;

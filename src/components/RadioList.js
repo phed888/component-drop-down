@@ -1,14 +1,15 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import { ThemeProvider } from 'styled-components';
-import Orion from './Orion';
-import { ReactCSSTransitionGroup } from 'react-transition-group';
+import React, { Component } from "react";
+import styled from "styled-components";
+import { ThemeProvider } from "styled-components";
+import Orion from "./Orion";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+import RadioListItem from "./RadioListItem";
 
 class RadioList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedOption: 'Show all',
+      selectedOption: "Show all",
       radioListItems: []
     };
     this.handleOptionChange = this.handleOptionChange.bind(this);
@@ -19,17 +20,18 @@ class RadioList extends Component {
   }
 
   handleOptionChange = newSelection => {
+    console.log("inside handleOptionChange");
     this.setState({ selectedOption: newSelection });
     this.hideUnselected(newSelection);
   };
 
   hideUnselected = newSelection => {
-    if (newSelection === 'Show all') {
+    if (newSelection === "Show all") {
       this.showAll();
     } else {
       let tempState = [...this.state.radioListItems];
       let showAll = tempState.filter(listItem =>
-        listItem.name.includes('Show all')
+        listItem.name.includes("Show all")
       );
       let selectedName = tempState.filter(listItem =>
         listItem.name.includes(newSelection)
@@ -45,34 +47,25 @@ class RadioList extends Component {
 
   render() {
     let listItems = this.state.radioListItems.map(listItem => (
-      <ReactCSSTransitionGroup
-        transitionName="fade"
-        transitionEnterTimeout={500}
-        transitionLeaveTimeout={300}
-      >
-        <li key={listItem.name}>
-          <label htmlFor={listItem.name} className="radioListLabel">
-            <span className="listName">
-              <input
-                type="radio"
-                name="radioTest"
-                id={listItem.name}
-                checked={this.state.selectedOption === listItem.name}
-                onChange={this.handleOptionChange.bind(this, listItem.name)}
-              />
-              {listItem.name}
-            </span>
-            <span className="listTitle">{listItem.title}</span>
-          </label>
-        </li>
-      </ReactCSSTransitionGroup>
+      <CSSTransition key={listItem.name} timeout={300} classNames="fade">
+        <RadioListItem
+          itemName={listItem.name}
+          itemTitle={listItem.title}
+          handleOptionChange={this.handleOptionChange}
+          selectedOption={this.state.selectedOption}
+        />
+      </CSSTransition>
     ));
 
     return (
       <ThemeProvider theme={Orion}>
         <RadioContainer>
           <div className="radioList-container">
-            <ul className="radioList">{listItems}</ul>
+            <ul className="radioList">
+              <TransitionGroup className="radioList">
+                {listItems}
+              </TransitionGroup>
+            </ul>
           </div>
         </RadioContainer>
       </ThemeProvider>
@@ -86,10 +79,11 @@ const RadioContainer = styled.div`
     box-sizing: border-box;
     padding: 0.8rem;
     background-color: #ffffff;
-    border: 0.1rem solid ${Orion.gray500};
+    /* border: 0.1rem solid ${Orion.gray500}; */
     border-radius: 0.2rem;
     width: 100%;
     margin-top: 24px;
+    overflow-x: hidden;
   }
   .radioList {
     padding: 0;
@@ -135,18 +129,47 @@ const RadioContainer = styled.div`
     transform: scaleY(0);
   }
   .fade-enter.fade-enter-active {
-    opacity: 1;
-    transform: scaleY(1);
-    transition: all 300ms linear;
+    animation: fade-enter-timing 1000ms;
   }
   .fade-exit {
     opacity: 1;
     transform: scaleY(1);
   }
   .fade-exit.fade-exit-active {
-    opacity: 0;
-    transform: scaleY(0);
-    transition: all 300ms linear;
+    animation: fade-leave-timing 1000ms;
+  }
+  @keyframes fade-enter-timing {
+    0% {
+      opacity: 0;
+      transform: scaleY(0);
+      transform: translateX(30%);
+    }
+    50% {
+      opacity: 1;
+      transform: scaleY(1);
+    }
+    100% {
+      opacity: 1;
+      transform: scaleY(1);
+      transform: translateX(0);
+    }
+  }
+  @keyframes fade-leave-timing {
+    0% {
+      opacity: 1;
+      transform: scaleY(1);
+      transform: translateX(0);
+    }
+    50% {
+      opacity: 0;
+      transform: scaleY(1);
+      transform: translateX(15%)
+    }
+    100% {
+      opacity: 0;
+      transform: scaleY(0.01);
+      transform: translateX(30%);
+    }
   }
 `;
 
